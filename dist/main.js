@@ -1,6 +1,23 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 let students = [];
+let teachers = [];
+let activities = [];
+/*let courses : course [] = [];*/
+let gradebook = [];
+var Area;
+(function (Area) {
+    Area["Programacion"] = "Programacion Visual";
+    Area["BasedeDatos"] = "Base de Datos";
+    Area["Metodologias"] = "Metodologias";
+    Area["Dise\u00F1odeInterface"] = "Dise\u00F1odeInterface";
+})(Area || (Area = {}));
+var Course;
+(function (Course) {
+    Course["Programacion"] = "Programacion Visual";
+    Course["BasedeDatos"] = "Base de Datos";
+    Course["Metodologias"] = "Metodologias";
+})(Course || (Course = {}));
 function addStudent() {
     let currentStudent = {
         name: readFromHtml("name"),
@@ -15,7 +32,6 @@ function addStudent() {
     console.log(students);
 }
 ;
-let teachers = [];
 function addTeacher() {
     let currentTeacher = {
         name: readFromHtml("name-teachers"),
@@ -30,7 +46,6 @@ function addTeacher() {
     console.log(teachers);
 }
 ;
-let activities = [];
 function addactivities() {
     let currentActivity = {
         name_activity: readFromHtml("name_activity")
@@ -39,17 +54,49 @@ function addactivities() {
     console.log(activities);
 }
 ;
-let courses = [];
-function addcourses() {
-    let currentCourse = {
-        name_courses: readFromHtml("name_courses"),
-        number_hours: parseInt(readFromHtml("number_hours")),
-        parallel: readFromHtml("parallel")
-    };
+/*function addcourses (){
+
+    let currentCourse :course = {
+         name_courses : readFromHtml("name_courses"),
+         number_hours : parseInt(readFromHtml("number_hours")),
+         parallel : readFromHtml("parallel")
+    }
     courses.push(currentCourse);
     console.log(courses);
+};*/
+function addgradebook() {
+    let currentGradebook = {
+        value: readFromHtml("value-gradebook"),
+        Course: readFromHtml("course-gradebook"),
+        activity: readFromHtml("activity-gradebook"),
+        maximunGrade: parseInt(readFromHtml("maximunGrade")),
+    };
+    gradebook.push(currentGradebook);
+    console.log(gradebook);
 }
 ;
+initCourse();
+function initCourse() {
+    let coursegradebook = document.getElementById("course-gradebook");
+    let Courses = Object.values(Course);
+    Courses.forEach((value) => {
+        let option = document.createElement("option");
+        option.value = value;
+        option.text = value;
+        coursegradebook.add(option);
+    });
+}
+function initArea() {
+    let areas = document.getElementById("area");
+    let area = Object.values(Area);
+    area.forEach((value) => {
+        let option = document.createElement("option");
+        option.value = value;
+        option.text = value;
+        areas.add(option);
+    });
+}
+initArea();
 function readFromHtml(id) {
     return document.getElementById(id).value;
 }
